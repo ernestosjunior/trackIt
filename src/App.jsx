@@ -1,11 +1,13 @@
-import { Button, Input, Header, Footer } from "./components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { SignIn } from "./pages";
 
 function App() {
   return (
-    <>
-      <Header />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
