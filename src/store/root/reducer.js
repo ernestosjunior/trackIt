@@ -1,13 +1,14 @@
 import * as actions from "./actions";
 
-export const rootInitialState = {};
+export const rootInitialState = {
+  habits: [],
+};
 
-export const rootReducer = () => {
-  switch (key) {
-    case value:
-      break;
-
+export const rootReducer = (state, action) => {
+  switch (action.type) {
+    case "setHabits":
+      return actions.setHabits(action.payload);
     default:
-      return null;
+      throw new Error();
   }
 };
