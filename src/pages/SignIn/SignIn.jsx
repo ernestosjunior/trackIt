@@ -1,15 +1,42 @@
+import { useState } from "react";
 import logo from "../../assets/logo.svg";
 import { Input, Button, Link } from "../../components";
-import { Container } from "./styles";
+import { login } from "../../services/api";
+import { Container, Main } from "./styles";
 
 const SignIn = () => {
+  const [fields, setField] = useState({
+    loading: false,
+    email: "",
+    password: "",
+  });
+
+  const setLoading = (value) =>
+    setField((prev) => ({ ...prev, loading: value }));
+
+  const handleField = (field, value) =>
+    setField((prev) => ({ ...prev, [field]: value }));
+
   return (
     <Container>
-      <img src={logo} />
-      <Input placeholder="email" />
-      <Input placeholder="senha" />
-      <Button label="Entrar" />
-      <Link label="Não tem uma conta? Cadastre-se!" />
+      <Main>
+        <img src={logo} />
+        <Input id="email" placeholder="email" onChange={handleField} />
+        <Input id="password" placeholder="senha" onChange={handleField} />
+        <Button
+          loading={fields.loading}
+          disabled={fields.loading || !fields.email || !fields.password}
+          label="Entrar"
+          onClick={() =>
+            login({
+              email: fields.email,
+              password: fields.password,
+              setLoading,
+            })
+          }
+        />
+        <Link label="Não tem uma conta? Cadastre-se!" />
+      </Main>
     </Container>
   );
 };
