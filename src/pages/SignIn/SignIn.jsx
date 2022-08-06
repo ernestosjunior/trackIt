@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { Input, Button, Link } from "../../components";
 import { login } from "../../services/api";
@@ -10,6 +11,8 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const setLoading = (value) =>
     setField((prev) => ({ ...prev, loading: value }));
@@ -32,10 +35,11 @@ const SignIn = () => {
               email: fields.email,
               password: fields.password,
               setLoading,
+              navigate,
             })
           }
         />
-        <Link label="Não tem uma conta? Cadastre-se!" />
+        <Link label="Não tem uma conta? Cadastre-se!" path="../cadastro" />
       </Main>
     </Container>
   );
