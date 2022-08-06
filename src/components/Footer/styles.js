@@ -9,12 +9,14 @@ export const StyledFooter = styled.footer`
   align-items: center;
   justify-content: space-around;
   background: #ffffff;
+  z-index: 4;
 
   .CircularProgressbar {
     width: 90px;
     height: 90px;
     position: absolute;
     bottom: 10px;
+    z-index: 4;
   }
 
   .CircularProgressbar-text {

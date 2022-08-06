@@ -68,7 +68,7 @@ export const signUp = async ({
 }) => {
   try {
     setLoading(true);
-    const { statusText, data } = await apiAuth.get("/login", {
+    const { statusText, data } = await apiAuth.get("/sign-up", {
       email,
       password,
       name,

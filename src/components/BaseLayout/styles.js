@@ -7,6 +7,8 @@ export const Container = styled.main`
   flex-direction: column;
 
   > section {
-    height: calc(100vh - 140px);
+    height: 100vh;
+    margin-top: 70px;
+    background: #f2f2f2;
   }
 `;
