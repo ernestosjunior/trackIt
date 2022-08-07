@@ -3,21 +3,21 @@ import addIcon from "../../assets/add.svg";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import { days } from "./days";
-import { Container, Label, Content, ButtonDay } from "./styles";
+import ButtonDay from "../ButtonDay/ButtonDay";
+import { Container, Label, Content } from "./styles";
 import { createHabit } from "../../services/api";
 
 const Day = ({ label, onClick }) => {
   const [selected, setSelected] = useState(false);
   return (
     <ButtonDay
-      onClick={() => {
+      text={label}
+      click={() => {
         setSelected(!selected);
         onClick();
       }}
       selected={selected}
-    >
-      {label}
-    </ButtonDay>
+    />
   );
 };
 
@@ -26,7 +26,7 @@ const initialState = { name: "", days: [], loading: false };
 const AddHabit = () => {
   const [show, setShow] = useState(false);
   const [fields, setFields] = useState(initialState);
-
+  console.log(fields.days);
   const storage = JSON.parse(window.localStorage.getItem("user")) || {
     token: "",
   };
