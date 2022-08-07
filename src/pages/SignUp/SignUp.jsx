@@ -35,7 +35,7 @@ const SignUp = () => {
           disabled={
             fields.loading ||
             !fields.email ||
-            !fields.passwor ||
+            !fields.password ||
             !fields.name ||
             !fields.image
           }

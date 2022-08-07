@@ -12,12 +12,12 @@ const api = axios.create({
 export const login = async ({ email, password, setLoading, navigate }) => {
   try {
     setLoading(true);
-    const { statusText, data } = await apiAuth.post("/login", {
+    const { data } = await apiAuth.post("/login", {
       email,
       password,
     });
 
-    if (statusText !== "OK") {
+    if (!data || !data.token) {
       return toast.error("Credenciais inválidas!", {
         position: "top-right",
         autoClose: 5000,
@@ -68,14 +68,14 @@ export const signUp = async ({
 }) => {
   try {
     setLoading(true);
-    const { statusText, data } = await apiAuth.post("/sign-up", {
+    const { data } = await apiAuth.post("/sign-up", {
       email,
       password,
       name,
       image,
     });
 
-    if (statusText !== "OK") {
+    if (!data || !data.id) {
       return toast.error("Erro. Tente novamente!", {
         position: "top-right",
         autoClose: 5000,
@@ -121,15 +121,21 @@ export const createHabit = async ({
 }) => {
   try {
     setLoading(true);
-    const { statusText, data } = await api.post("/habits", {
-      headers: {
-        authorization: `Bearer ${token}`,
-        "content-type": "application/json",
+    const { data } = await api.post(
+      "/habits",
+      {
+        name,
+        days,
       },
-      body: { name, days },
-    });
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "content-type": "application/json",
+        },
+      }
+    );
 
-    if (statusText !== "OK") {
+    if (!data || !data.id) {
       return toast.error("Erro. Tente novamente!", {
         position: "top-right",
         autoClose: 5000,
@@ -153,6 +159,43 @@ export const createHabit = async ({
     return setShow(false);
   } catch (error) {
     return toast.error("Erro. Tente novamente!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
+export const getHabits = async ({ setLoading, token, setState }) => {
+  try {
+    setLoading(true);
+    const { data } = await api.get("/habits", {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+      },
+    });
+
+    if (!data || !data.length) {
+      return toast.error("Erro ao buscar hábitos.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    return setState(data);
+  } catch (error) {
+    return toast.error("Erro ao buscar hábitos.", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,

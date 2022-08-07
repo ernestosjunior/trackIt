@@ -10,5 +10,6 @@ export const Container = styled.main`
     height: 100vh;
     margin-top: 70px;
     background: #f2f2f2;
+    margin-bottom: 70px;
   }
 `;

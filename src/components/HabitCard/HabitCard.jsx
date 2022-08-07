@@ -1,8 +1,8 @@
-import trashIcon from "../../assets/transh.svg";
+import trashIcon from "../../assets/trash.svg";
 import ButtonDay from "../ButtonDay/ButtonDay";
-import { Card } from "./styles";
+import { Card, Container } from "./styles";
 
-const HabitCard = ({ name, days }) => {
+const HabitCard = ({ name, days, onClick }) => {
   const state = [
     { label: "D", selected: days.includes(0) },
     { label: "S", selected: days.includes(1) },
@@ -14,18 +14,22 @@ const HabitCard = ({ name, days }) => {
   ];
 
   return (
-    <Card>
-      <img src={trashIcon} alt="" />
-      <h1>{name}</h1>
-      {state.map((day) => (
-        <ButtonDay
-          text={day.label}
-          selected={day.selected}
-          click={() => null}
-          disabled
-        />
-      ))}
-    </Card>
+    <Container>
+      <Card>
+        <img src={trashIcon} alt="" onClick={onClick} />
+        <h1>{name}</h1>
+        <section>
+          {state.map((day) => (
+            <ButtonDay
+              text={day.label}
+              selected={day.selected}
+              click={() => null}
+              disabled
+            />
+          ))}
+        </section>
+      </Card>
+    </Container>
   );
 };
 
