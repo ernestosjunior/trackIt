@@ -112,12 +112,21 @@ export const signUp = async ({
   }
 };
 
-export const createHabit = async ({ name, days, setLoading, setShow }) => {
+export const createHabit = async ({
+  name,
+  days,
+  setLoading,
+  setShow,
+  token,
+}) => {
   try {
     setLoading(true);
     const { statusText, data } = await api.post("/habits", {
-      name,
-      days,
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+      },
+      body: { name, days },
     });
 
     if (statusText !== "OK") {
