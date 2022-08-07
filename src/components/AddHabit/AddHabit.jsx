@@ -81,6 +81,7 @@ const AddHabit = () => {
                   name: fields.name,
                   days: fields.days,
                   setLoading,
+                  setShow,
                 })
               }
             />

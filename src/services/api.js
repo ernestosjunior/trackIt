@@ -112,7 +112,7 @@ export const signUp = async ({
   }
 };
 
-export const createHabit = async ({ name, days, setLoading }) => {
+export const createHabit = async ({ name, days, setLoading, setShow }) => {
   try {
     setLoading(true);
     const { statusText, data } = await api.post("/habits", {
@@ -132,7 +132,7 @@ export const createHabit = async ({ name, days, setLoading }) => {
       });
     }
 
-    return toast.success("Sucesso!", {
+    toast.success("Sucesso!", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -141,6 +141,7 @@ export const createHabit = async ({ name, days, setLoading }) => {
       draggable: true,
       progress: undefined,
     });
+    return setShow(false);
   } catch (error) {
     return toast.error("Erro. Tente novamente!", {
       position: "top-right",
