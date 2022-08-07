@@ -27,7 +27,10 @@ const AddHabit = () => {
   const [show, setShow] = useState(false);
   const [fields, setFields] = useState(initialState);
 
-  const token = JSON.parse(window.localStorage.getItem("user")).token || "";
+  const storage = JSON.parse(window.localStorage.getItem("user")) || {
+    token: "",
+  };
+  const token = storage.token;
 
   const handleSelected = (option) => {
     const isSelected = fields.days.includes(option);
