@@ -52,6 +52,9 @@ export const Content = styled.div`
     button {
       width: 84px;
       height: 35px;
+      font-weight: 400;
+      font-size: 15.976px;
+      line-height: 20px;
     }
   }
 `;

@@ -4,6 +4,7 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import { days } from "./days";
 import { Container, Label, Content, ButtonDay } from "./styles";
+import { createHabit } from "../../services/api";
 
 const Day = ({ label, onClick }) => {
   const [selected, setSelected] = useState(false);
@@ -20,21 +21,30 @@ const Day = ({ label, onClick }) => {
   );
 };
 
+const initialState = { name: "", days: [], loading: false };
+
 const AddHabit = () => {
   const [show, setShow] = useState(false);
-  const [selected, setSelected] = useState([]);
+  const [fields, setFields] = useState(initialState);
 
   const handleSelected = (option) => {
-    const isSelected = selected.includes(option);
-    let options = selected;
+    const isSelected = fields.days.includes(option);
+    let options = fields.days;
 
     if (isSelected) {
       options = options.filter((item) => item !== option);
-      return setSelected(options);
+      return setFields((prev) => ({ ...prev, days: options }));
     }
 
-    return setSelected((prev) => [...prev, option]);
+    return setFields((prev) => ({ ...prev, days: [...prev.days, option] }));
   };
+
+  const setField = (field, value) => {
+    setFields((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const setLoading = (value) =>
+    setFields((prev) => ({ ...prev, loading: value }));
 
   return (
     <Container>
@@ -44,7 +54,7 @@ const AddHabit = () => {
       </Label>
       {show && (
         <Content>
-          <Input placeholder="nome do hábito" />
+          <Input placeholder="nome do hábito" id="name" onChange={setField} />
           <section className="containerDays">
             {days.map((day) => (
               <Day
@@ -54,8 +64,26 @@ const AddHabit = () => {
             ))}
           </section>
           <footer>
-            <p>Cancelar</p>
-            <Button label="Salvar" />
+            <p
+              onClick={() => {
+                setShow(false);
+                setFields(initialState);
+              }}
+            >
+              Cancelar
+            </p>
+            <Button
+              loading={fields.loading}
+              disabled={fields.loading || !fields.name || !fields.days.length}
+              label="Salvar"
+              onClick={() =>
+                createHabit({
+                  name: fields.name,
+                  days: fields.days,
+                  setLoading,
+                })
+              }
+            />
           </footer>
         </Content>
       )}

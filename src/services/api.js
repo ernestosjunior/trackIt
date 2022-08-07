@@ -12,7 +12,7 @@ const api = axios.create({
 export const login = async ({ email, password, setLoading, navigate }) => {
   try {
     setLoading(true);
-    const { statusText, data } = await apiAuth.get("/login", {
+    const { statusText, data } = await apiAuth.post("/login", {
       email,
       password,
     });
@@ -68,7 +68,7 @@ export const signUp = async ({
 }) => {
   try {
     setLoading(true);
-    const { statusText, data } = await apiAuth.get("/sign-up", {
+    const { statusText, data } = await apiAuth.post("/sign-up", {
       email,
       password,
       name,
@@ -97,6 +97,50 @@ export const signUp = async ({
       progress: undefined,
     });
     return navigate("../");
+  } catch (error) {
+    return toast.error("Erro. Tente novamente!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
+export const createHabit = async ({ name, days, setLoading }) => {
+  try {
+    setLoading(true);
+    const { statusText, data } = await api.post("/habits", {
+      name,
+      days,
+    });
+
+    if (statusText !== "OK") {
+      return toast.error("Erro. Tente novamente!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+
+    return toast.success("Sucesso!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   } catch (error) {
     return toast.error("Erro. Tente novamente!", {
       position: "top-right",
