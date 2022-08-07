@@ -1,6 +1,6 @@
 import { ButtonDay as Button } from "../AddHabit/styles";
 
-const ButtonDay = ({ text, onClick, selected, click, disabled }) => {
+const ButtonDay = ({ text, selected, click, disabled }) => {
   return (
     <Button onClick={click} selected={selected} disabled={disabled}>
       {text}

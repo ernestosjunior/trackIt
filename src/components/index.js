@@ -6,3 +6,4 @@ export { default as Footer } from "./Footer/Footer";
 export { default as BaseLayout } from "./BaseLayout/BaseLayout";
 export { default as AddHabit } from "./AddHabit/AddHabit";
 export { default as ButtonDay } from "./ButtonDay/ButtonDay";
+export { default as HabitCard } from "./HabitCard/HabitCard";
