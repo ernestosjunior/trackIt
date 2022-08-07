@@ -1,7 +1,12 @@
-import { BaseLayout } from "../../components";
+import { BaseLayout, AddHabit } from "../../components";
+import { useRoot } from "../../store";
 
 const Habits = () => {
-  return <BaseLayout></BaseLayout>;
+  return (
+    <BaseLayout>
+      <AddHabit />
+    </BaseLayout>
+  );
 };
 
 export default Habits;
