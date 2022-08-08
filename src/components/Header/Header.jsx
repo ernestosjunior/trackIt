@@ -5,7 +5,7 @@ import { Container, Avatar, Logo } from "./styles";
 
 const Header = () => {
   const user = JSON.parse(window.localStorage.getItem("user"));
-  const src = user && user.img ? user.img : noPhoto;
+  const src = user && user.image ? user.image : noPhoto;
 
   return (
     <Container>
