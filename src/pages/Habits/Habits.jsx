@@ -37,7 +37,6 @@ const Habits = () => {
               name={habit.name}
               days={habit.days}
               onClick={() => {
-                console.log(token);
                 deleteHabit({
                   id: habit.id,
                   setState: setHabits,
