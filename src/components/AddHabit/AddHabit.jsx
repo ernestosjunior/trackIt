@@ -26,11 +26,6 @@ const initialState = { name: "", days: [], loading: false };
 const AddHabit = ({ setHabits }) => {
   const [show, setShow] = useState(false);
   const [fields, setFields] = useState(initialState);
-  console.log(fields.days);
-  const storage = JSON.parse(window.localStorage.getItem("user")) || {
-    token: "",
-  };
-  const token = storage.token;
 
   const handleSelected = (option) => {
     const isSelected = fields.days.includes(option);
@@ -87,7 +82,6 @@ const AddHabit = ({ setHabits }) => {
                   days: fields.days,
                   setLoading,
                   setShow,
-                  token,
                   setState: setHabits,
                 })
               }

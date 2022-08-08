@@ -11,17 +11,12 @@ const Habits = () => {
     rootDispatch,
   } = useRoot();
 
-  const { token } = JSON.parse(window.localStorage.getItem("user")) || {
-    token: "",
-  };
-
   const setHabits = (value) =>
     rootDispatch({ type: "setHabits", payload: value });
 
   useEffect(() => {
     getHabits({
       setLoading,
-      token,
       setState: setHabits,
     });
   }, []);
@@ -46,7 +41,6 @@ const Habits = () => {
                 deleteHabit({
                   id: habit.id,
                   setState: setHabits,
-                  token,
                 });
               }}
             />

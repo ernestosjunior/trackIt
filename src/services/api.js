@@ -1,8 +1,16 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const { token } = JSON.parse(window.localStorage.getItem("user")) || {
+  token: "",
+};
+
 const apiAuth = axios.create({
   baseURL: "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth",
+  headers: {
+    authorization: `Bearer ${token}`,
+    "content-type": "application/json",
+  },
 });
 
 const api = axios.create({
@@ -117,7 +125,6 @@ export const createHabit = async ({
   days,
   setLoading,
   setShow,
-  token,
   setState,
 }) => {
   try {
@@ -174,7 +181,7 @@ export const createHabit = async ({
   }
 };
 
-export const getHabits = async ({ setLoading, token, setState }) => {
+export const getHabits = async ({ setLoading, setState }) => {
   try {
     setLoading && setLoading(true);
     const { data } = await api.get("/habits", {
@@ -211,7 +218,7 @@ export const getHabits = async ({ setLoading, token, setState }) => {
   }
 };
 
-export const deleteHabit = async ({ token, setState, id }) => {
+export const deleteHabit = async ({ setState, id }) => {
   try {
     const res = await api.delete(`/habits/${id}`, {
       headers: {
