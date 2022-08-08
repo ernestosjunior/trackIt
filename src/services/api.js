@@ -118,6 +118,7 @@ export const createHabit = async ({
   setLoading,
   setShow,
   token,
+  setState,
 }) => {
   try {
     setLoading(true);
@@ -156,6 +157,7 @@ export const createHabit = async ({
       draggable: true,
       progress: undefined,
     });
+    getHabits({ token, setState });
     return setShow(false);
   } catch (error) {
     return toast.error("Erro. Tente novamente!", {
@@ -174,7 +176,7 @@ export const createHabit = async ({
 
 export const getHabits = async ({ setLoading, token, setState }) => {
   try {
-    setLoading(true);
+    setLoading && setLoading(true);
     const { data } = await api.get("/habits", {
       headers: {
         authorization: `Bearer ${token}`,
@@ -205,6 +207,6 @@ export const getHabits = async ({ setLoading, token, setState }) => {
       progress: undefined,
     });
   } finally {
-    setLoading(false);
+    setLoading && setLoading(false);
   }
 };

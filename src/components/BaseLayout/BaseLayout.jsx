@@ -4,7 +4,7 @@ import { Container } from "./styles";
 
 const BaseLayout = ({ children }) => {
   return (
-    <Container>
+    <Container isMobile={window.innerWidth <= 900}>
       <Header />
       <section>{children}</section>
       <Footer />

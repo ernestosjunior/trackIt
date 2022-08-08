@@ -7,3 +7,10 @@ export const Alert = styled.p`
   color: #666666;
   padding: 18px;
 `;
+
+export const HabitsContainer = styled.section`
+  width: 100%;
+  height: 100%;
+
+  margin-bottom: 16vh;
+`;

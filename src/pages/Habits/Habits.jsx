@@ -1,6 +1,6 @@
 import { BaseLayout, AddHabit, HabitCard } from "../../components";
 import { useRoot } from "../../store";
-import { Alert } from "./styles";
+import { Alert, HabitsContainer } from "./styles";
 import { getHabits } from "../../services/api";
 import { useEffect, useState } from "react";
 
@@ -24,17 +24,19 @@ const Habits = () => {
 
   return (
     <BaseLayout>
-      <AddHabit />
+      <AddHabit setHabits={setHabits} />
       {!loading && !habits.length && (
         <Alert>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
         </Alert>
       )}
-      {!!habits.length &&
-        habits.map((habit) => (
-          <HabitCard name={habit.name} days={habit.days} />
-        ))}
+      <HabitsContainer>
+        {!!habits.length &&
+          habits.map((habit) => (
+            <HabitCard name={habit.name} days={habit.days} />
+          ))}
+      </HabitsContainer>
     </BaseLayout>
   );
 };

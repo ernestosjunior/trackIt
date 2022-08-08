@@ -23,7 +23,7 @@ const Day = ({ label, onClick }) => {
 
 const initialState = { name: "", days: [], loading: false };
 
-const AddHabit = () => {
+const AddHabit = ({ setHabits }) => {
   const [show, setShow] = useState(false);
   const [fields, setFields] = useState(initialState);
   console.log(fields.days);
@@ -88,6 +88,7 @@ const AddHabit = () => {
                   setLoading,
                   setShow,
                   token,
+                  setState: setHabits,
                 })
               }
             />
