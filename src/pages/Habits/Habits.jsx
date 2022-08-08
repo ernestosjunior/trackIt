@@ -2,10 +2,9 @@ import { BaseLayout, AddHabit, HabitCard } from "../../components";
 import { useRoot } from "../../store";
 import { Alert, HabitsContainer } from "./styles";
 import { getHabits, deleteHabit } from "../../services/api";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const Habits = () => {
-  const [loading, setLoading] = useState(false);
   const {
     rootState: { habits },
     rootDispatch,
@@ -16,7 +15,6 @@ const Habits = () => {
 
   useEffect(() => {
     getHabits({
-      setLoading,
       setState: setHabits,
     });
   }, []);
@@ -24,7 +22,7 @@ const Habits = () => {
   return (
     <BaseLayout>
       <AddHabit setHabits={setHabits} />
-      {!loading && !habits.length && (
+      {!habits.length && (
         <Alert>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
