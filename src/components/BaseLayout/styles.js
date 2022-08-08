@@ -8,6 +8,7 @@ export const Container = styled.main`
   background: #f2f2f2;
 
   > section {
+    min-height: 100vh;
     margin-top: 70px;
   }
 `;

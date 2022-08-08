@@ -184,7 +184,7 @@ export const getHabits = async ({ setLoading, token, setState }) => {
       },
     });
 
-    if (!data || !data.length) {
+    if (!data) {
       return toast.error("Erro ao buscar hábitos.", {
         position: "top-right",
         autoClose: 5000,
@@ -209,4 +209,39 @@ export const getHabits = async ({ setLoading, token, setState }) => {
   } finally {
     setLoading && setLoading(false);
   }
+};
+
+export const deleteHabit = async ({ token, setState, id }) => {
+  try {
+    const res = await api.delete(`/habits/${id}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+      },
+    });
+
+    if (res.status < 200 && res.status >= 300) {
+      return toast.error("Erro. Tente novamente!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+
+    toast.success("Sucesso!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    getHabits({ token, setState });
+    return setShow(false);
+  } catch (error) {}
 };
