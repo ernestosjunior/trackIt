@@ -11,11 +11,15 @@ export const StyledFooter = styled.footer`
   justify-content: space-around;
   background: #ffffff;
 
+  .redirect-container {
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+  }
+
   .CircularProgressbar {
     width: 90px;
     height: 90px;
-    position: absolute;
-    bottom: 10px;
   }
 
   .CircularProgressbar-text {
