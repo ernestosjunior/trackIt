@@ -7,8 +7,8 @@ import ButtonDay from "../ButtonDay/ButtonDay";
 import { Container, Label, Content } from "./styles";
 import { createHabit } from "../../services/api";
 
-const Day = ({ label, onClick }) => {
-  const [selected, setSelected] = useState(false);
+const Day = ({ label, onClick, isSelected }) => {
+  const [selected, setSelected] = useState(isSelected);
   return (
     <ButtonDay
       text={label}
@@ -54,12 +54,18 @@ const AddHabit = ({ setHabits }) => {
       </Label>
       {show && (
         <Content>
-          <Input placeholder="nome do hábito" id="name" onChange={setField} />
+          <Input
+            placeholder="nome do hábito"
+            id="name"
+            onChange={setField}
+            value={fields.name}
+          />
           <section className="containerDays">
             {days.map((day) => (
               <Day
                 label={day.label}
                 onClick={() => handleSelected(day.value)}
+                isSelected={fields.days.includes(day.value)}
               />
             ))}
           </section>
@@ -67,7 +73,6 @@ const AddHabit = ({ setHabits }) => {
             <p
               onClick={() => {
                 setShow(false);
-                setFields(initialState);
               }}
             >
               Cancelar

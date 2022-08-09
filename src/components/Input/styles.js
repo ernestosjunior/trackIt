@@ -7,6 +7,7 @@ export const StyledInput = styled.input`
   background-color: #ffffff;
   border-radius: 5px;
   font-size: 19.976px;
+  color: #666666;
 
   ::placeholder {
     color: #dbdbdb;
