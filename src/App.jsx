@@ -1,14 +1,21 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { SignIn, SignUp, Habits, Today, Historic } from "./pages";
 import { ProtectedRoutes } from "./components";
 import { RootProvider } from "./store";
 
 function App() {
+  const { token } = JSON.parse(window.localStorage.getItem("user")) || {
+    token: "",
+  };
+
   return (
     <BrowserRouter>
       <RootProvider>
         <Routes>
-          <Route path="/" element={<SignIn />} />
+          <Route
+            path="/"
+            element={!token ? <SignIn /> : <Navigate to="/habitos" replace />}
+          />
           <Route path="/cadastro" element={<SignUp />} />
 
           <Route

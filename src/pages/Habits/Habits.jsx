@@ -15,16 +15,15 @@ const Habits = () => {
     rootDispatch({ type: "setHabits", payload: value });
 
   useLayoutEffect(() => {
-    if (!habits?.length)
-      getHabits({
-        setState: setHabits,
-        token: user?.token,
-      });
+    getHabits({
+      setState: setHabits,
+      token: user?.token,
+    });
   }, []);
 
   return (
     <BaseLayout>
-      <AddHabit setHabits={setHabits} token={user?.token} />
+      <AddHabit setHabits={setHabits} />
       {!habits?.length && (
         <Alert>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para

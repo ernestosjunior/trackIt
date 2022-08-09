@@ -40,8 +40,6 @@ export const login = async ({
 
     delete data.password;
 
-    window.localStorage.setItem("user", JSON.stringify(data));
-
     setUser(data);
 
     toast.success("Sucesso!", {
@@ -147,10 +145,10 @@ export const createHabit = async ({ name, days, setShow, setState, token }) => {
       });
     }
     toast.dismiss(idToast);
-    getHabits({ setState });
+    getHabits({ setState, token });
     return setShow(false);
   } catch (error) {
-    return toast.error("Erro. Tente novamente!", {
+    return toast.error(error.message, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -271,6 +269,6 @@ export const handleHabitToday = async ({ id, action, setState, token }) => {
       });
     }
     toast.dismiss(toastID);
-    return getHabitsToday({ setState });
+    return getHabitsToday({ setState, token });
   } catch (error) {}
 };

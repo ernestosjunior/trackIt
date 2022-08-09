@@ -28,11 +28,10 @@ const Today = () => {
     rootDispatch({ type: "setHabitsToday", payload: value });
 
   useLayoutEffect(() => {
-    if (!habitsToday?.length)
-      getHabitsToday({
-        setState: setHabitsToday,
-        token: user?.token,
-      });
+    getHabitsToday({
+      setState: setHabitsToday,
+      token: user?.token,
+    });
   }, []);
 
   const percent = extractPercent(habitsToday);

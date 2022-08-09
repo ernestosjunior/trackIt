@@ -6,6 +6,7 @@ import { days } from "./days";
 import ButtonDay from "../ButtonDay/ButtonDay";
 import { Container, Label, Content } from "./styles";
 import { createHabit } from "../../services/api";
+import { useRoot } from "../../store";
 
 const Day = ({ label, onClick, isSelected }) => {
   const [selected, setSelected] = useState(isSelected);
@@ -23,9 +24,11 @@ const Day = ({ label, onClick, isSelected }) => {
 
 const initialState = { name: "", days: [], loading: false };
 
-const AddHabit = ({ setHabits, token }) => {
+const AddHabit = ({ setHabits }) => {
   const [show, setShow] = useState(false);
   const [fields, setFields] = useState(initialState);
+
+  const { user } = useRoot();
 
   const handleSelected = (option) => {
     const isSelected = fields.days.includes(option);
@@ -88,7 +91,7 @@ const AddHabit = ({ setHabits, token }) => {
                   setLoading,
                   setShow,
                   setState: setHabits,
-                  token,
+                  token: user?.token,
                 })
               }
             />
