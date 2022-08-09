@@ -156,8 +156,6 @@ export const createHabit = async ({ name, days, setShow, setState }) => {
 };
 
 export const getHabits = async ({ setState }) => {
-  const toastID = toast.loading("Carregando...");
-
   try {
     const { data } = await api.get("/habits");
 
@@ -184,8 +182,6 @@ export const getHabits = async ({ setState }) => {
       draggable: true,
       progress: undefined,
     });
-  } finally {
-    toast.dismiss(toastID);
   }
 };
 
@@ -239,4 +235,25 @@ export const getHabitsToday = async ({ setState }) => {
     });
   } finally {
   }
+};
+
+export const handleHabitToday = async ({ id, action, setState }) => {
+  const toastID = toast.loading("Carregando...");
+  try {
+    const { status } = await api.post(`/habits/${id}/${action}`);
+
+    if (status < 200 && status >= 300) {
+      return toast.error("Erro. Tente novamente!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    toast.dismiss(toastID);
+    return getHabitsToday({ setState });
+  } catch (error) {}
 };

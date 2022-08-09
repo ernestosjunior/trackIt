@@ -2,7 +2,7 @@ import { BaseLayout, AddHabit, HabitCard } from "../../components";
 import { useRoot } from "../../store";
 import { Alert, HabitsContainer } from "./styles";
 import { getHabits, deleteHabit } from "../../services/api";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 const Habits = () => {
   const {
@@ -13,23 +13,24 @@ const Habits = () => {
   const setHabits = (value) =>
     rootDispatch({ type: "setHabits", payload: value });
 
-  useEffect(() => {
-    getHabits({
-      setState: setHabits,
-    });
+  useLayoutEffect(() => {
+    if (!habits?.length)
+      getHabits({
+        setState: setHabits,
+      });
   }, []);
 
   return (
     <BaseLayout>
       <AddHabit setHabits={setHabits} />
-      {!habits.length && (
+      {!habits?.length && (
         <Alert>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
         </Alert>
       )}
       <HabitsContainer>
-        {!!habits.length &&
+        {!!habits?.length &&
           habits.map((habit) => (
             <HabitCard
               name={habit.name}

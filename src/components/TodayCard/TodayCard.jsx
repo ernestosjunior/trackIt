@@ -8,6 +8,7 @@ const TodayCard = ({
   highestSequence,
   onClick,
 }) => {
+  const isHighest = highestSequence && currentSequence >= highestSequence;
   return (
     <Container>
       <Card>
@@ -15,11 +16,11 @@ const TodayCard = ({
           <h1>{name}</h1>
           <span>
             <p>Sequência atual:</p>
-            <p>{currentSequence}</p>
+            <p className={isHighest ? "green" : ""}>{currentSequence}</p>
           </span>
           <span>
             <p>Seu recorde:</p>
-            <p>{highestSequence}</p>
+            <p className={isHighest ? "green" : ""}>{highestSequence}</p>
           </span>
         </div>
         <Check selected={done} onClick={onClick}>

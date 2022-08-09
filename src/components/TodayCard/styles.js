@@ -31,6 +31,10 @@ export const Card = styled.article`
     line-height: 16px;
     color: #666666;
   }
+
+  .green {
+    color: #8fc549;
+  }
 `;
 
 export const Check = styled.div`
