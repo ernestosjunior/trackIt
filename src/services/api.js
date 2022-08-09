@@ -155,9 +155,11 @@ export const createHabit = async ({ name, days, setShow, setState }) => {
   }
 };
 
-export const getHabits = async ({ setState }) => {
+export const getHabits = async ({ setState, token }) => {
   try {
-    const { data } = await api.get("/habits");
+    const { data } = await api.get("/habits", {
+      headers: { authorization: `Bearer ${token}` },
+    });
 
     if (!data) {
       return toast.error("Erro ao buscar hábitos.", {
@@ -173,7 +175,7 @@ export const getHabits = async ({ setState }) => {
 
     return setState(data);
   } catch (error) {
-    return toast.error("Erro ao buscar hábitos.", {
+    return toast.error(error.message, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -207,9 +209,11 @@ export const deleteHabit = async ({ setState, id }) => {
   } catch (error) {}
 };
 
-export const getHabitsToday = async ({ setState }) => {
+export const getHabitsToday = async ({ setState, token }) => {
   try {
-    const { data } = await api.get("/habits/today");
+    const { data } = await api.get("/habits/today", {
+      headers: { authorization: `Bearer ${token}` },
+    });
 
     if (!data) {
       return toast.error("Erro ao buscar hábitos.", {
@@ -224,7 +228,7 @@ export const getHabitsToday = async ({ setState }) => {
     }
     return setState(data);
   } catch (error) {
-    return toast.error("Erro ao buscar hábitos.", {
+    return toast.error(error.message, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,

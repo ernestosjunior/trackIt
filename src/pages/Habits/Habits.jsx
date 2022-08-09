@@ -17,6 +17,7 @@ const Habits = () => {
     if (!habits?.length)
       getHabits({
         setState: setHabits,
+        token: JSON.parse(window.localStorage.getItem("user"))?.token,
       });
   }, []);
 
@@ -31,8 +32,9 @@ const Habits = () => {
       )}
       <HabitsContainer>
         {!!habits?.length &&
-          habits.map((habit) => (
+          habits.map((habit, index) => (
             <HabitCard
+              key={`habit-${index}`}
               name={habit.name}
               days={habit.days}
               onClick={() => {

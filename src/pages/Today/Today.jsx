@@ -30,6 +30,7 @@ const Today = () => {
     if (!habitsToday?.length)
       getHabitsToday({
         setState: setHabitsToday,
+        token: JSON.parse(window.localStorage.getItem("user"))?.token,
       });
   }, []);
 
@@ -42,11 +43,11 @@ const Today = () => {
         <StatusTitle percent={percent} />
       </HeaderPage>
       {!!habitsToday?.length &&
-        habitsToday.map((habit) => {
+        habitsToday.map((habit, index) => {
           const action = habit.done ? "uncheck" : "check";
-          console.log(habit);
           return (
             <TodayCard
+              key={`habit-today-${index}`}
               done={habit.done}
               name={habit.name}
               currentSequence={habit.currentSequence}

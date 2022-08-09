@@ -19,8 +19,9 @@ const HabitCard = ({ name, days, onClick }) => {
         <img src={trashIcon} alt="" onClick={onClick} />
         <h1>{name}</h1>
         <section>
-          {state.map((day) => (
+          {state.map((day, index) => (
             <ButtonDay
+              key={`day=${index}`}
               text={day.label}
               selected={day.selected}
               click={() => null}
