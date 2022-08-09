@@ -1,21 +1,16 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
-import { extractPercent } from "../../utils/extractPercent";
-import { useRoot } from "../../store";
 import { StyledFooter, Option } from "./styles";
 
 const Footer = ({ percentage }) => {
-  const {
-    rootState: { habitsToday },
-  } = useRoot();
   const navigate = useNavigate();
   return (
     <StyledFooter>
       <Option onClick={() => navigate("../habitos")}>Hábitos</Option>
       <div className="redirect-container" onClick={() => navigate("../hoje")}>
         <CircularProgressbar
-          value={extractPercent(habitsToday)}
+          value={percentage}
           text="Hoje"
           background
           backgroundPadding={6}
