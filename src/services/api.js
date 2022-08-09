@@ -1,10 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const { token } = JSON.parse(window.localStorage.getItem("user")) || {
-  token: "",
-};
-
 const apiAuth = axios.create({
   baseURL: "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth",
 });
@@ -12,12 +8,17 @@ const apiAuth = axios.create({
 const api = axios.create({
   baseURL: "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit",
   headers: {
-    authorization: `Bearer ${token}`,
     "content-type": "application/json",
   },
 });
 
-export const login = async ({ email, password, setLoading, navigate }) => {
+export const login = async ({
+  email,
+  password,
+  setLoading,
+  navigate,
+  setUser,
+}) => {
   try {
     setLoading(true);
     const { data } = await apiAuth.post("/login", {
@@ -40,6 +41,8 @@ export const login = async ({ email, password, setLoading, navigate }) => {
     delete data.password;
 
     window.localStorage.setItem("user", JSON.stringify(data));
+
+    setUser(data);
 
     toast.success("Sucesso!", {
       position: "top-right",
@@ -120,13 +123,17 @@ export const signUp = async ({
   }
 };
 
-export const createHabit = async ({ name, days, setShow, setState }) => {
+export const createHabit = async ({ name, days, setShow, setState, token }) => {
   const idToast = toast.loading("Carregando...");
   try {
-    const { data } = await api.post("/habits", {
-      name,
-      days,
-    });
+    const { data } = await api.post(
+      "/habits",
+      {
+        name,
+        days,
+      },
+      { headers: { authorization: `Bearer ${token}` } }
+    );
 
     if (!data || !data.id) {
       return toast.error("Erro. Tente novamente!", {
@@ -187,10 +194,12 @@ export const getHabits = async ({ setState, token }) => {
   }
 };
 
-export const deleteHabit = async ({ setState, id }) => {
+export const deleteHabit = async ({ setState, id, token }) => {
   const toastID = toast.loading("Carregando...");
   try {
-    const res = await api.delete(`/habits/${id}`);
+    const res = await api.delete(`/habits/${id}`, {
+      headers: { authorization: `Bearer ${token}` },
+    });
 
     if (res.status < 200 && res.status >= 300) {
       return toast.error("Erro. Tente novamente!", {
@@ -241,10 +250,14 @@ export const getHabitsToday = async ({ setState, token }) => {
   }
 };
 
-export const handleHabitToday = async ({ id, action, setState }) => {
+export const handleHabitToday = async ({ id, action, setState, token }) => {
   const toastID = toast.loading("Carregando...");
   try {
-    const { status } = await api.post(`/habits/${id}/${action}`);
+    const { status } = await api.post(
+      `/habits/${id}/${action}`,
+      {},
+      { headers: { authorization: `Bearer ${token}` } }
+    );
 
     if (status < 200 && status >= 300) {
       return toast.error("Erro. Tente novamente!", {

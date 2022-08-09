@@ -23,7 +23,7 @@ const Day = ({ label, onClick, isSelected }) => {
 
 const initialState = { name: "", days: [], loading: false };
 
-const AddHabit = ({ setHabits }) => {
+const AddHabit = ({ setHabits, token }) => {
   const [show, setShow] = useState(false);
   const [fields, setFields] = useState(initialState);
 
@@ -88,6 +88,7 @@ const AddHabit = ({ setHabits }) => {
                   setLoading,
                   setShow,
                   setState: setHabits,
+                  token,
                 })
               }
             />

@@ -8,6 +8,7 @@ const Habits = () => {
   const {
     rootState: { habits },
     rootDispatch,
+    user,
   } = useRoot();
 
   const setHabits = (value) =>
@@ -17,13 +18,13 @@ const Habits = () => {
     if (!habits?.length)
       getHabits({
         setState: setHabits,
-        token: JSON.parse(window.localStorage.getItem("user"))?.token,
+        token: user?.token,
       });
   }, []);
 
   return (
     <BaseLayout>
-      <AddHabit setHabits={setHabits} />
+      <AddHabit setHabits={setHabits} token={user?.token} />
       {!habits?.length && (
         <Alert>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
@@ -41,6 +42,7 @@ const Habits = () => {
                 deleteHabit({
                   id: habit.id,
                   setState: setHabits,
+                  token: user?.token,
                 });
               }}
             />

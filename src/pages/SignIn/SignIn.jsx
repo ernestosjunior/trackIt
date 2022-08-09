@@ -4,6 +4,7 @@ import logo from "../../assets/logo.svg";
 import { Input, Button, Link } from "../../components";
 import { login } from "../../services/api";
 import { Container, Main } from "./styles";
+import { useRoot } from "../../store";
 
 const SignIn = () => {
   const [fields, setField] = useState({
@@ -11,6 +12,8 @@ const SignIn = () => {
     email: "",
     password: "",
   });
+
+  const { setUser } = useRoot();
 
   const navigate = useNavigate();
 
@@ -36,6 +39,7 @@ const SignIn = () => {
               password: fields.password,
               setLoading,
               navigate,
+              setUser,
             })
           }
         />

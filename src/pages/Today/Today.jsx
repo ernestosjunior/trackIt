@@ -21,6 +21,7 @@ const Today = () => {
   const {
     rootState: { habitsToday },
     rootDispatch,
+    user,
   } = useRoot();
 
   const setHabitsToday = (value) =>
@@ -30,7 +31,7 @@ const Today = () => {
     if (!habitsToday?.length)
       getHabitsToday({
         setState: setHabitsToday,
-        token: JSON.parse(window.localStorage.getItem("user"))?.token,
+        token: user?.token,
       });
   }, []);
 
@@ -57,6 +58,7 @@ const Today = () => {
                   id: habit.id,
                   action,
                   setState: setHabitsToday,
+                  token: user?.token,
                 })
               }
             />
